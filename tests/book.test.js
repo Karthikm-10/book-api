@@ -16,7 +16,7 @@ describe('Books API', () => {
   });
 
   test('GET /books should return all books', async () => {
-    const response = await request(app).get('/books');
+    const response = await request(app).get('/');
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
   });
@@ -28,14 +28,14 @@ describe('Books API', () => {
       publishedDate: '2023-01-01',
       genre: 'Test Genre'
     }
-    const response = await request(app).post('/books').send(newBook);
+    const response = await request(app).post('/').send(newBook);
     expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('_id');
   });
 
   test('GET /books/:id should return a book', async () => {
     const book = await Book.create({ title: 'Sample', author: 'Author', publishedDate: '2023-01-01', genre: 'Fiction' });
-    const response = await request(app).get(`/books/${book._id}`);
+    const response = await request(app).get(`/${book._id}`);
     expect(response.statusCode).toBe(200);
     expect(response.body.title).toBe('Sample');
   });
